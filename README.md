@@ -6,7 +6,7 @@ System:
 * OS: MacOS Sonoma 14.4
 * Apple M3 Max (ARM64)
 
-**Reproduce bug #[2571]([url](https://github.com/bazelbuild/rules_rust/issues/2571)) in a Bazel configuration with rules_rust**
+**Reproduce [issue 2571]([url](https://github.com/bazelbuild/rules_rust/issues/2571)) in a Bazel configuration with rules_rust**
 
 Cargo builds the project as expected:
 
