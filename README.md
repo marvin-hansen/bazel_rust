@@ -6,18 +6,30 @@ System:
 * OS: MacOS Sonoma 14.4
 * Apple M3 Max (ARM64)
 
-Reproduced an error in a Bazel configuration for Rust monorepo
+**Reproduce an error in a Bazel configuration for Rust monorepo**
+
+Cargo builds the project as expected:
+
+```Bash
+ cargo build 
+```
+
+## Steps to reproduce:
 
 1) Sync dependencies from Cargo to Bazel
 
->  CARGO_BAZEL_ISOLATED=false CARGO_BAZEL_REPIN=1 bazel sync --only=crate_index
+```Bash
+CARGO_BAZEL_ISOLATED=false CARGO_BAZEL_REPIN=1 bazel sync --only=crate_index
+```
 
-2) Try Bazel build
+2) Run Bazel build
 
-> bazel build //:build
+```Bash
+ bazel build //:build
+```
 
 Error:
-```Bash
+```
 no such target '@@crate_index__async-executor-1.8.0//:executor': target 'executor' not declared in package '' 
 defined by /private/var/tmp/_bazel_marvin/9cf0c27c2f651654c121c526ef57328f/external/crate_index__async-executor-1.8.0/BUILD.bazel
 
@@ -30,7 +42,9 @@ and referenced by '@@crate_index__surrealdb-core-1.3.1//:surrealdb_core'
 
 3) Query crate_index__async-executor-1.8.0
 
-> bazel query "@crate_index__async-executor-1.8.0//:*"
+```Bash
+ bazel query "@crate_index__async-executor-1.8.0//:*"
+```
 
 Output:
 ```
