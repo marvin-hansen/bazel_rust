@@ -1,0 +1,51 @@
+[workspace]
+resolver = "2"
+
+members = [
+    "queng_common",
+]
+
+
+[workspace.package]
+edition = "2021"
+rust-version = "1.76"
+readme = "README.md"
+repository = "https://github.com/marvin-hansen/quant-engine"
+authors = ["Marvin Hansen <marvin.hansen@gmail.com>"]
+
+
+[workspace.dependencies]
+#
+# ==============
+# Internal crates
+# ==============
+#
+common = { path = "queng_common" }
+#
+# ==============
+# External crates
+# ==============
+#
+chrono = { version = "0.4", features = ["serde"] }
+iggy = {version = "0.2.8"}
+rust_decimal = {version = "1.34"}
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", default-features = false }
+surrealdb = { version = "1.3" }
+
+
+# Optimize all crates
+[profile.release]
+opt-level = 3
+strip = true  # Automatically strip debug symbols from the binary
+lto = true    # Enable Link Time Optimization (LTO)
+codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimization
+
+
+# There's a Cargo feature named profile-overrides
+# that lets you override the optimization level of dependencies.
+# https://docs.rust-embedded.org/book/unsorted/speed-vs-size.html
+[profile.release.package."*"]
+opt-level = 3
+strip = 'debuginfo'  # Automatically strip debug infos from the binary to reduce size
+codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimization

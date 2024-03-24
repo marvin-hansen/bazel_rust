@@ -1,0 +1,15 @@
+filegroup(
+    name = "build",
+    srcs = [
+        "//queng_common:common",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "tests",
+    srcs = [
+        "//queng_common:tests",
+    ],
+    visibility = ["//visibility:public"],
+)
